@@ -88,7 +88,7 @@ class Chatbox extends Component {
                     textAlign: 'center',
                     marginRight: '10px'
                 }}>
-                    Live 24/7
+                    &nbsp;
                     < Icon name='minus' style={{ float: 'right' }} />
                 </div>
             )

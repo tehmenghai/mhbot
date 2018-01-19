@@ -1,6 +1,9 @@
 const userReducer = (
     state = [{
         from: '',
+        msgtime:'',
+        msgtype:'',
+        msgheader:'',
         msg: []
     }],
     action
@@ -13,6 +16,9 @@ const userReducer = (
             ]
             state.push({
                 from: action.payload.from,
+                msgtype: action.payload.msgtype,
+                msgheader: action.payload.msgheader,
+                msgtime: new Date().toLocaleTimeString(),
                 msg: action.payload.msg
             })
             break

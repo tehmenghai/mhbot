@@ -8,6 +8,8 @@ class ChatboxBody extends Component {
         this.scrollToBottom()
     }
 
+    
+
     componentDidUpdate() {
         this.scrollToBottom()
     }
@@ -33,9 +35,11 @@ class ChatboxBody extends Component {
         botAvatar = (<Comment.Avatar as={Image} src='https://udger.com/pub/img/brand/nec_big.png' size='large'/>)
 
         let allMsgsRender = ''
+
         if (allMsgs.length > 0) {
             allMsgsRender = allMsgs.map((msg, index) => {
 
+               
                 let dividermah = <Divider />
 
                 if (allMsgs.length-1 === index) {
@@ -58,7 +62,7 @@ class ChatboxBody extends Component {
                                 <Comment.Author as={'a'}>User</Comment.Author>
 
                                 <Comment.Metadata>
-                                    <div>Today at 5:42PM</div>
+                                    <div>Today at {msg.msgtime}</div>
                                 </Comment.Metadata>
 
                                 <Comment.Text>{msg.msg}</Comment.Text>
@@ -78,10 +82,21 @@ class ChatboxBody extends Component {
                 }
                 else if (msg.from === 'bot') {
 
+              
                     let msgrender = msg.msg.map((eachmsg, index) => {
-                        let msgsplit = eachmsg.split(":")
-                        let msgheader = msgsplit[0]
 
+                        let msgsplit =''
+                        let msgheader = ''
+                        if (eachmsg==='')
+                        {
+                            msgheader ='EmptyRow'
+                        }
+                        else
+                        {
+                            msgsplit = eachmsg.split(":")
+                            msgheader = msgsplit[0]
+                        }
+      
                         // button is number
                         if (!isNaN(msgheader)) {
                             let buttonmsg = msgsplit[1].split('(')
@@ -104,12 +119,100 @@ class ChatboxBody extends Component {
                                 }
 
                                 return (
-                                    <Image key={index} src={imageUrl} size='small' style={{ marginTop: '10px' }}/>
+                                    <Image key={index} src={imageUrl} size='small' style={{ marginTop: '10px', width: 'auto' }}/>
                                 )
                             }
+                            else  if(msgheader === 'EmptyRow') {
+                                 return (<div key={index}>&nbsp;</div>)
+                                }
                             else {
-                                // just a normal txt
-                                return (<div key={index}>{msgheader}</div>)
+
+                                   switch(msg.msgtype) {
+                                        case 'list':
+                                        
+                                            if (msgsplit.length>1)
+                                            {
+
+                                                let ulmsg = ''
+                                                let ulname = ''
+                                                let ulpayload = ''
+                                           
+                                                if( (msgheader === 'Url') || (msgheader === 'mailto')) {
+                                                     ulmsg = msgsplit[1].split('(')
+                                                     ulname = ulmsg[0]
+                                                     ulpayload = ulmsg[1].split(')')[0]
+                                                }
+                                                else  {
+                                                    ulmsg = msgsplit[1]
+                                                    ulname = msgsplit[1]
+                                                    ulpayload = msgsplit[1]
+
+                                                }
+                                              
+
+                                                if(msgheader === 'mailto') {
+                                                    ulpayload = "mailto:" + ulpayload
+                                                }
+                                                else
+                                                {
+                                                    switch(ulpayload) {
+                                                        case 'https':
+                                                            ulpayload = ulmsg[1].split(')')[0] + ":" + msgsplit[2].split(')')[0]
+                                                             
+                                                        case 'http' :   
+                                                            ulpayload = ulmsg[1].split(')')[0] + ":" + msgsplit[2].split(')')[0]
+                                                                 
+                                                    }
+                                                }
+
+                                               
+                                                       
+                                            if(msgheader === 'Input') {
+
+                                                return ( 
+                                                    <div>
+                                                        <ul key={index}>
+                                                        <li><a href='#' onClick={() => { this.props.handleButtonClick(ulpayload) }} style={{marginTop: '10px'}}>
+                                                        {ulname}</a></li>
+                                                       
+                                                        </ul>
+                                                    </div>);
+     
+                                            }
+                                            else  if(msgheader === 'mailto') {
+                                                return ( 
+                                                    <div>
+                                                        <ul key={index}>
+                                                        {/* <li><a href='{ulpayload}' onClick={() => { this.props.handleButtonClick(ulpayload) }} style={{marginTop: '10px'}}>
+                                                        {ulname}</a></li> */}
+                                                        <li><a href={ulpayload} style={{marginTop: '10px'}}>
+                                                        {ulname}</a></li>
+                                                        </ul>
+                                                    </div>);
+                                            }
+                                            {
+
+                                                return ( 
+                                                    <div>
+                                                        <ul key={index}>
+                                                        {/* <li><a href='{ulpayload}' onClick={() => { this.props.handleButtonClick(ulpayload) }} style={{marginTop: '10px'}}>
+                                                        {ulname}</a></li> */}
+                                                        <li><a href={ulpayload} target="_blank"  style={{marginTop: '10px'}}>
+                                                        {ulname}</a></li>
+                                                        </ul>
+                                                    </div>);
+     
+                                            }
+
+                                            
+                                            }
+                                                                                       
+                                        default:
+                                           return (<div key={index}>{msgheader}</div>)
+                                        
+                                    }
+
+                               // return (<div key={index}>{msgheader}</div>)
                             }
                         }
                     })
@@ -124,7 +227,7 @@ class ChatboxBody extends Component {
                                 <Comment.Author as={'a'}>Chatbot</Comment.Author>
 
                                 <Comment.Metadata>
-                                    <div>Today at 5:42PM</div>
+                                    <div>Today at {msg.msgtime}</div>
                                 </Comment.Metadata>
 
                                 <Comment.Text>{msgrender}</Comment.Text>
@@ -147,6 +250,8 @@ class ChatboxBody extends Component {
                         </Comment>
                     )
                 }
+
+                
                 return ''
             })
         }
