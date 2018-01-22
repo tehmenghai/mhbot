@@ -38,7 +38,7 @@ class App extends Component {
             case 'CHATBOT':
                 // chatbot only, connect to my chatbot socket server pls
                 this.connectChatbotSocket()
-                this.props.dispatch(pushMsg_act({ from: 'bot', msg: ['Hi, I am NEC Chatbot, how may I assist you today?']}))
+                this.props.dispatch(pushMsg_act({ from: 'bot', msg: ['Hi, I am NEC Chatbot, your virtual assistant. How can I assist you today? Please be patient as I am still learning.']}))
                 break
 
             case 'LIVECHAT':
@@ -223,6 +223,7 @@ class App extends Component {
         let adminReducer = this.props.adminReducer
         let chatboxMode = envReducer.chatboxMode
 
+      
         switch (chatboxMode) {
             case 'CHATBOT':
                 // only chatbot

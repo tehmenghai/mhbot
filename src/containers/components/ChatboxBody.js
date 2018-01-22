@@ -170,8 +170,8 @@ class ChatboxBody extends Component {
                                             if(msgheader === 'Input') {
 
                                                 return ( 
-                                                    <div>
-                                                        <ul key={index}>
+                                                    <div key={index}>
+                                                        <ul >
                                                         <li><a href='#' onClick={() => { this.props.handleButtonClick(ulpayload) }} style={{marginTop: '10px'}}>
                                                         {ulname}</a></li>
                                                        
@@ -181,8 +181,8 @@ class ChatboxBody extends Component {
                                             }
                                             else  if(msgheader === 'mailto') {
                                                 return ( 
-                                                    <div>
-                                                        <ul key={index}>
+                                                    <div  key={index}>
+                                                        <ul>
                                                         {/* <li><a href='{ulpayload}' onClick={() => { this.props.handleButtonClick(ulpayload) }} style={{marginTop: '10px'}}>
                                                         {ulname}</a></li> */}
                                                         <li><a href={ulpayload} style={{marginTop: '10px'}}>
@@ -193,8 +193,8 @@ class ChatboxBody extends Component {
                                             {
 
                                                 return ( 
-                                                    <div>
-                                                        <ul key={index}>
+                                                    <div key={index}>
+                                                        <ul >
                                                         {/* <li><a href='{ulpayload}' onClick={() => { this.props.handleButtonClick(ulpayload) }} style={{marginTop: '10px'}}>
                                                         {ulname}</a></li> */}
                                                         <li><a href={ulpayload} target="_blank"  style={{marginTop: '10px'}}>
