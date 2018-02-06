@@ -77,7 +77,7 @@ class Chatbox extends Component {
                     marginLeft: '20px'
                 }}>
                     < Icon name='comments' size='large' style={{ paddingRight: '30px', paddingBottom: '25px'}} />
-                    Ask me
+                    We're Online!
                 </div>
             )
 
@@ -88,11 +88,10 @@ class Chatbox extends Component {
         else {
             headerStyle = (
                 <div style={{ 
-                    textAlign: 'left',
-                    paddingLeft:'10px',
-                    marginRight: '10px'
+                    marginRight: '10px',
+                    paddingLeft: '10px'
                 }}>
-                     Ask NEC Chatbot
+                    Ask NEC Chatbot
                     < Icon name='minus' style={{ float: 'right' }} />
                 </div>
             )
@@ -110,11 +109,9 @@ class Chatbox extends Component {
         }
 
         return (
-  
             <div style={{ margin: '0 0 1000px' }}>
-                
-                {/* <div id="MainPage">Hello World</div> */}
-                <div style={{ 
+			    
+				  <div style={{ 
                     textAlign: 'left',
                     paddingTop: '5%',
                     paddingLeft:'5%',
@@ -132,6 +129,7 @@ class Chatbox extends Component {
                       <img src={stepimage} width="100%"/>
                     </div>
                     </div>
+					
                 <Responsive as={'div'} minWidth={767} maxWidth={2559}>
 
                     <Draggable
